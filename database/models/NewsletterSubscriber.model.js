@@ -9,16 +9,13 @@ const newsletterSubscriberSchema = new mongoose.Schema({
     trim: true,
     match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
   },
-  subscribed: {
-    type: Boolean,
-    default: true,
-  },
   subscribedAt: {
     type: Date,
     default: Date.now,
   },
-  unsubscribedAt: {
-    type: Date,
+  isActive: {
+    type: Boolean,
+    default: true,
   },
 }, {
   timestamps: true,

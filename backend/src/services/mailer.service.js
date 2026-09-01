@@ -2,23 +2,20 @@ const nodemailer = require('nodemailer')
 const env = require('../config/env')
 
 const transporter = nodemailer.createTransport({
-  host: env.EMAIL_HOST,
-  port: env.EMAIL_PORT,
+  host: env.MAILER_HOST,
+  port: env.MAILER_PORT,
   auth: {
-    user: env.EMAIL_USER,
-    pass: env.EMAIL_PASS,
+    user: env.MAILER_USER,
+    pass: env.MAILER_PASS,
   },
 })
 
 const sendContactEmail = async (data) => {
-  if (!env.EMAIL_USER) {
-    console.log('Email not configured — skipping send for:', data.email)
-    return
-  }
+  if (!env.MAILER_USER) return
 
   await transporter.sendMail({
-    from: env.EMAIL_USER,
-    to: env.EMAIL_USER,
+    from: env.MAILER_USER,
+    to: env.MAILER_USER,
     replyTo: data.email,
     subject: `New Contact: ${data.subject}`,
     html: `
@@ -35,10 +32,10 @@ const sendContactEmail = async (data) => {
 }
 
 const sendNewsletterWelcome = async (email) => {
-  if (!env.EMAIL_USER) return
+  if (!env.MAILER_USER) return
 
   await transporter.sendMail({
-    from: env.EMAIL_USER,
+    from: env.MAILER_USER,
     to: email,
     subject: 'Welcome to Code Voyagers Newsletter',
     html: `
@@ -49,14 +46,11 @@ const sendNewsletterWelcome = async (email) => {
 }
 
 const sendContactNotification = async (inquiry) => {
-  if (!env.EMAIL_USER) {
-    console.log('Email not configured — skipping notification for:', inquiry.email)
-    return
-  }
+  if (!env.MAILER_USER) return
 
   await transporter.sendMail({
-    from: env.EMAIL_USER,
-    to: env.EMAIL_USER,
+    from: env.MAILER_USER,
+    to: env.MAILER_USER,
     replyTo: inquiry.email,
     subject: `New Contact: ${inquiry.name} — ${inquiry.serviceInterested}`,
     html: `

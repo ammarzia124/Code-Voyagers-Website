@@ -1,52 +1,53 @@
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import {
-  Briefcase,
-  Wrench,
-  Network,
-  ShieldCheck,
-  Cloud,
-  GraduationCap,
+  Globe,
+  Paintbrush,
+  Palette,
+  Brain,
+  Video,
+  TrendingUp,
   ArrowRight,
 } from 'lucide-react'
 import { useInView } from '@/hooks/useInView'
+import { useTheme } from '@/context/ThemeContext'
 
 const services = [
   {
-    title: 'IT Counseling',
-    description: 'Strategic technology roadmapping for your business',
-    icon: Briefcase,
-    slug: 'it-counseling',
+    title: 'Website & App Development',
+    description: 'Custom websites and mobile applications built for performance and scale',
+    icon: Globe,
+    slug: 'web-development',
   },
   {
-    title: 'IT Servicing & Repair',
-    description: 'Fast, reliable hardware and software support',
-    icon: Wrench,
-    slug: 'it-servicing-repair',
+    title: 'Graphics Designing',
+    description: 'Visual identities and marketing materials that command attention',
+    icon: Paintbrush,
+    slug: 'graphics-designing',
   },
   {
-    title: 'Network Design & Setup',
-    description: 'Secure, scalable infrastructure from the ground up',
-    icon: Network,
-    slug: 'network-design-setup',
+    title: 'UI/UX Designing',
+    description: 'Research-driven interfaces that convert visitors into loyal customers',
+    icon: Palette,
+    slug: 'ui-ux-design',
   },
   {
-    title: 'Cybersecurity Audit',
-    description: 'Identify vulnerabilities before attackers do',
-    icon: ShieldCheck,
-    slug: 'cybersecurity-audit',
+    title: 'Agentic AI & AI Automation',
+    description: 'Intelligent AI agents and workflows that eliminate manual overhead',
+    icon: Brain,
+    slug: 'ai-automation',
   },
   {
-    title: 'Cloud Migration',
-    description: 'Move to the cloud without disrupting operations',
-    icon: Cloud,
-    slug: 'cloud-migration',
+    title: 'Video Editing',
+    description: 'Professional video production and editing for marketing and branding',
+    icon: Video,
+    slug: 'video-editing',
   },
   {
-    title: 'Training & Workshops',
-    description: 'Upskill your team with hands-on IT training',
-    icon: GraduationCap,
-    slug: 'training-workshops',
+    title: 'Digital Marketing',
+    description: 'Data-driven campaigns that amplify your reach and drive measurable growth',
+    icon: TrendingUp,
+    slug: 'digital-marketing',
   },
 ]
 
@@ -62,28 +63,29 @@ const item = {
 
 export default function ServicesOverviewSection() {
   const { ref, isInView } = useInView()
+  const { reducedMotion } = useTheme()
 
   return (
     <section className="section-padding bg-base">
       <div className="container-width mx-auto">
         <div className="text-center mb-16">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-display-md font-display font-bold text-text-primary mb-4 text-balance"
           >
             Everything Your Business Needs to Stay Ahead
           </motion.h2>
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
+            transition={reducedMotion ? undefined : { delay: 0.1 }}
             className="text-body-lg text-text-body max-w-[60ch] mx-auto"
           >
-            From strategic consulting to hands-on support, we deliver the IT
-            services that keep your business running at its best.
+            From web development to AI automation, we deliver the digital
+            solutions that keep your business running at its best.
           </motion.p>
         </div>
 

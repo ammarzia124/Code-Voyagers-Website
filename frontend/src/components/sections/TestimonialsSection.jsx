@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { Star } from 'lucide-react'
 import { TESTIMONIALS } from '@/config/constants'
 import { useInView } from '@/hooks/useInView'
+import { useTheme } from '@/context/ThemeContext'
 
 const displayedTestimonials = TESTIMONIALS.slice(0, 3)
 
@@ -17,14 +18,15 @@ const item = {
 
 export default function TestimonialsSection() {
   const { ref, isInView } = useInView()
+  const { reducedMotion } = useTheme()
 
   return (
     <section className="section-padding bg-base">
       <div className="container-width mx-auto">
         <div className="text-center mb-16">
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+            whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-display-md font-display font-bold text-text-primary text-balance"
           >

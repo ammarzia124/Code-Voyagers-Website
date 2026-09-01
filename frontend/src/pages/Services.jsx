@@ -13,10 +13,20 @@ import {
 import { Button } from '@/components/ui/button'
 import { SERVICES } from '@/config/constants'
 import PageHero from '@/components/layout/PageHero'
+import { useSEO } from '@/utils/seo'
+import { useTheme } from '@/context/ThemeContext'
 
 const iconMap = { Globe, Smartphone, Palette, Paintbrush, TrendingUp, Brain }
 
 export default function Services() {
+  useSEO({
+    title: 'Our Services',
+    description: 'Explore our full range of services — web development, UI/UX design, graphics, AI automation, video editing, and digital marketing.',
+    path: '/services',
+  })
+
+  const { reducedMotion } = useTheme()
+
   return (
     <main className="pt-24">
       <PageHero
@@ -34,10 +44,10 @@ export default function Services() {
             return (
               <motion.div
                 key={service.id}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={reducedMotion ? false : { opacity: 0, y: 30 }}
+                whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.6, ease: 'easeOut' }}
+                transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut' }}
                 className={`py-16 ${
                   i < SERVICES.length - 1 ? 'border-b border-border' : ''
                 }`}

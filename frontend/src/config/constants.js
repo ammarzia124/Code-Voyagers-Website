@@ -56,11 +56,19 @@ export const SERVICES = [
   },
   {
     id: 'ai-automation',
-    title: 'AI & Automation',
-    shortDescription: 'Intelligent workflows and custom AI solutions that eliminate manual overhead.',
-    description: 'Custom AI chatbots, process automation, machine learning integration, and intelligent data pipelines. We help you work smarter, not harder.',
+    title: 'Agentic AI & AI Automation',
+    shortDescription: 'Intelligent AI agents and custom workflows that eliminate manual overhead.',
+    description: 'Custom AI chatbots, agentic workflows, process automation, machine learning integration, and intelligent data pipelines. We help you work smarter, not harder.',
     icon: 'Brain',
-    features: ['AI Chatbots & Assistants', 'Workflow Automation', 'ML Model Integration', 'Data Pipeline Design', 'Predictive Analytics'],
+    features: ['AI Chatbots & Assistants', 'Agentic Workflows', 'Workflow Automation', 'ML Model Integration', 'Predictive Analytics'],
+  },
+  {
+    id: 'video-editing',
+    title: 'Video Editing',
+    shortDescription: 'Professional video production and editing for marketing and branding.',
+    description: 'From concept to final cut, we produce polished video content that tells your story. Social media reels, product demos, explainers, and promotional videos — all crafted for impact.',
+    icon: 'Video',
+    features: ['Social Media Reels', 'Product Demos', 'Explainer Videos', 'Promotional Content', 'Motion Graphics'],
   },
 ]
 

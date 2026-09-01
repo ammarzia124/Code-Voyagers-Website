@@ -48,7 +48,7 @@ export function ToastProvider({ children }) {
                 {t.title && <p className="font-medium text-sm">{t.title}</p>}
                 {t.description && <p className="text-sm opacity-80 mt-0.5">{t.description}</p>}
               </div>
-              <button onClick={() => removeToast(t.id)} className="shrink-0 opacity-50 hover:opacity-100">
+              <button onClick={() => removeToast(t.id)} aria-label="Dismiss notification" className="shrink-0 opacity-50 hover:opacity-100">
                 <X className="w-4 h-4" />
               </button>
             </div>

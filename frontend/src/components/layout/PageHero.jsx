@@ -1,8 +1,11 @@
 import { motion } from 'framer-motion'
 import { ChevronRight } from 'lucide-react'
 import { Link } from 'react-router-dom'
+import { useTheme } from '@/context/ThemeContext'
 
 export default function PageHero({ title, description, breadcrumbs }) {
+  const { reducedMotion } = useTheme()
+
   return (
     <section className="h-[50vh] min-h-[400px] flex items-center relative overflow-hidden bg-base">
       <div
@@ -16,8 +19,8 @@ export default function PageHero({ title, description, breadcrumbs }) {
       <div className="container-width mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {breadcrumbs && breadcrumbs.length > 0 && (
           <motion.nav
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
+            initial={reducedMotion ? false : { opacity: 0, y: 10 }}
+            animate={reducedMotion ? false : { opacity: 1, y: 0 }}
             transition={{ duration: 0.4 }}
             className="flex items-center gap-2 text-body-sm text-text-muted mb-6"
           >
@@ -42,18 +45,18 @@ export default function PageHero({ title, description, breadcrumbs }) {
         )}
 
         <motion.h1
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut' }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+          animate={reducedMotion ? false : { opacity: 1, y: 0 }}
+          transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut' }}
           className="text-display-lg font-display font-bold text-text-primary mb-4"
         >
           {title}
         </motion.h1>
 
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+          animate={reducedMotion ? false : { opacity: 1, y: 0 }}
+          transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut', delay: 0.1 }}
           className="text-body-lg text-text-body max-w-2xl"
         >
           {description}

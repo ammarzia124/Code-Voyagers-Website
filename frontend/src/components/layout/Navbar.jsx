@@ -4,6 +4,8 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
+import { useTheme } from '@/context/ThemeContext'
+import logo from '@/assets/hero.png'
 
 const navLinks = [
   { href: '/services', label: 'Services' },
@@ -16,6 +18,7 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const { reducedMotion } = useTheme()
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 60)
@@ -35,9 +38,9 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -8, opacity: 0 }}
+        initial={reducedMotion ? false : { y: -8, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+        transition={reducedMotion ? undefined : { duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
@@ -46,7 +49,8 @@ export default function Navbar() {
         )}
       >
         <nav className="container-width mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-          <Link to="/" className="flex items-center gap-0.5 shrink-0">
+          <Link to="/" className="flex items-center gap-2 shrink-0">
+            <img src={logo} alt="Code Voyagers" className="w-9 h-9 object-contain" />
             <span className="text-display-md font-bold font-display text-text-primary">
               Code
             </span>

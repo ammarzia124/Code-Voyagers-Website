@@ -5,14 +5,17 @@ import { Calendar, User, ArrowRight } from 'lucide-react'
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { blogPosts } from '@/data/blogPosts'
 import PageHero from '@/components/layout/PageHero'
+import { useSEO } from '@/utils/seo'
+import { useTheme } from '@/context/ThemeContext'
 
-const categories = ['All', 'Cybersecurity', 'Cloud', 'Networking', 'General IT']
+const categories = ['All', 'Development', 'Design', 'AI & Automation', 'Marketing', 'Video & Media']
 
 const categoryStyles = {
-  Cybersecurity: 'bg-error/10 text-error',
-  Cloud: 'bg-brand-light text-brand',
-  Networking: 'bg-accent-light text-accent',
-  'General IT': 'bg-success-light text-success',
+  Development: 'bg-brand-light text-brand',
+  Design: 'bg-purple-50 text-purple-600',
+  'AI & Automation': 'bg-accent-light text-accent',
+  Marketing: 'bg-success-light text-success',
+  'Video & Media': 'bg-warning-light text-warning',
 }
 
 function formatDate(dateStr) {
@@ -24,6 +27,13 @@ function formatDate(dateStr) {
 }
 
 export default function Blog() {
+  useSEO({
+    title: 'Blog',
+    description: 'Practical IT insights for business leaders — cybersecurity, cloud, networking, AI, and digital strategy articles.',
+    path: '/blog',
+  })
+
+  const { reducedMotion } = useTheme()
   const [activeTab, setActiveTab] = useState('All')
 
   const filtered =
@@ -53,10 +63,10 @@ export default function Blog() {
               {filtered.map((post, i) => (
                 <motion.article
                   key={post.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+                  whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
                   viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
+                  transition={reducedMotion ? undefined : { delay: i * 0.05 }}
                   className="group rounded-lg border border-border bg-surface shadow-card overflow-hidden hover:shadow-elevated transition-shadow flex flex-col"
                 >
                   <div className="p-6 flex flex-col flex-1">

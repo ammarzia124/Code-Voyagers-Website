@@ -3,15 +3,16 @@ import { Link } from 'react-router-dom'
 import { Mail, Phone, MapPin } from 'lucide-react'
 import { SITE_CONFIG } from '@/config/constants'
 import { cn } from '@/utils/cn'
+import logo from '@/assets/hero.png'
 
 const footerLinks = {
   services: [
-    { label: 'IT Counseling', href: '/services/it-counseling' },
-    { label: 'IT Servicing', href: '/services/it-servicing' },
-    { label: 'Network Setup', href: '/services/network-setup' },
-    { label: 'Cybersecurity Audit', href: '/services/cybersecurity-audit' },
-    { label: 'Cloud Migration', href: '/services/cloud-migration' },
-    { label: 'Training & Workshops', href: '/services/training-workshops' },
+    { label: 'Web & App Development', href: '/services/web-development' },
+    { label: 'UI/UX Design', href: '/services/ui-ux-design' },
+    { label: 'Graphics Designing', href: '/services/graphics-designing' },
+    { label: 'Agentic AI & Automation', href: '/services/ai-automation' },
+    { label: 'Video Editing', href: '/services/video-editing' },
+    { label: 'Digital Marketing', href: '/services/digital-marketing' },
   ],
   company: [
     { label: 'About Us', href: '/about' },
@@ -25,13 +26,33 @@ const footerLinks = {
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [subscribed, setSubscribed] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
 
-  const handleSubscribe = (e) => {
+  const handleSubscribe = async (e) => {
     e.preventDefault()
-    if (email.trim()) {
-      setSubscribed(true)
-      setEmail('')
-      setTimeout(() => setSubscribed(false), 3000)
+    if (!email.trim()) return
+
+    setLoading(true)
+    setError('')
+    try {
+      const res = await fetch('/api/newsletter/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      })
+      const data = await res.json()
+      if (res.ok) {
+        setSubscribed(true)
+        setEmail('')
+        setTimeout(() => setSubscribed(false), 3000)
+      } else {
+        setError(data.message || 'Something went wrong.')
+      }
+    } catch {
+      setError('Unable to subscribe. Please try again later.')
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -41,7 +62,8 @@ export default function Footer() {
         <div className="container-width mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
             <div className="lg:col-span-1">
-              <Link to="/" className="inline-flex items-center gap-0.5 mb-4">
+              <Link to="/" className="inline-flex items-center gap-2 mb-4">
+                <img src={logo} alt="Code Voyagers" className="w-9 h-9 object-contain" />
                 <span className="text-display-md font-bold font-display text-white">
                   Code
                 </span>
@@ -152,30 +174,37 @@ export default function Footer() {
               <div>
                 <p className="text-xs text-white/40 mb-2">Subscribe to our newsletter</p>
                 <form onSubmit={handleSubscribe} className="flex gap-2">
+                  <label htmlFor="newsletter-email" className="sr-only">Email address</label>
                   <input
+                    id="newsletter-email"
                     type="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="you@company.com"
                     required
+                    disabled={loading}
                     className={cn(
                       'flex-1 min-w-0 px-3 py-2 text-sm rounded-lg',
                       'bg-white/5 border border-white/10 text-white placeholder:text-white/30',
                       'focus:outline-none focus:border-accent/50 focus:ring-1 focus:ring-accent/30',
-                      'transition-colors'
+                      'transition-colors disabled:opacity-50'
                     )}
                   />
                   <button
                     type="submit"
+                    disabled={loading}
                     className={cn(
                       'px-4 py-2 text-sm font-medium rounded-lg shrink-0',
                       'bg-accent text-white hover:bg-accent/90',
-                      'transition-colors cursor-pointer'
+                      'transition-colors cursor-pointer disabled:opacity-50'
                     )}
                   >
-                    {subscribed ? 'Subscribed' : 'Subscribe'}
+                    {loading ? '...' : subscribed ? 'Subscribed' : 'Subscribe'}
                   </button>
                 </form>
+                {error && (
+                  <p className="text-xs text-error mt-1.5">{error}</p>
+                )}
               </div>
             </div>
           </div>

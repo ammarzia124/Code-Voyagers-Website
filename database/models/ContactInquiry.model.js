@@ -28,6 +28,7 @@ const contactInquirySchema = new mongoose.Schema({
       'graphics-designing',
       'digital-marketing',
       'ai-automation',
+      'video-editing',
       'general',
     ],
     default: 'general',

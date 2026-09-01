@@ -17,7 +17,9 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { ErrorBanner } from '@/components/ui/ErrorBanner'
 import { SERVICES } from '@/config/constants'
+import { useSEO } from '@/utils/seo'
 
 const contactInfo = {
   email: 'hello@codevoyagers.com',
@@ -45,6 +47,12 @@ function validateField(name, value) {
 }
 
 export default function Contact() {
+  useSEO({
+    title: 'Contact',
+    description: 'Get in touch with Code Voyagers. Free consultation, fast response times, and honest advice about your IT challenges.',
+    path: '/contact',
+  })
+
   const [searchParams] = useSearchParams()
   const preselected = searchParams.get('service') || 'general'
 
@@ -137,27 +145,15 @@ export default function Contact() {
         <div className="container-width mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-[6fr_4fr] gap-12 lg:gap-16">
             <div>
-              <motion.h1
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                className="text-display-lg font-display font-bold text-text-primary mb-3"
-              >
+              <h1 className="text-display-lg font-display font-bold text-text-primary mb-3">
                 Let&apos;s Talk About Your IT Problem
-              </motion.h1>
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 }}
-                className="text-body-lg text-text-body mb-8"
-              >
+              </h1>
+              <p className="text-body-lg text-text-body mb-8">
                 No pitch call. Just an honest conversation about what&apos;s
                 slowing you down.
-              </motion.p>
+              </p>
 
-              <motion.form
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
+              <form
                 onSubmit={handleSubmit}
                 className="p-8 rounded-lg border border-border bg-surface shadow-card space-y-5"
               >
@@ -173,9 +169,10 @@ export default function Contact() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="Your full name"
+                      aria-describedby={errors.name ? 'name-error' : undefined}
                     />
                     {touched.name && errors.name && (
-                      <p className="text-error text-body-sm flex items-center gap-1 mt-1.5">
+                      <p id="name-error" role="alert" className="text-error text-body-sm flex items-center gap-1 mt-1.5">
                         <AlertCircle className="w-3.5 h-3.5" />
                         {errors.name}
                       </p>
@@ -193,9 +190,10 @@ export default function Contact() {
                       onChange={handleChange}
                       onBlur={handleBlur}
                       placeholder="you@company.com"
+                      aria-describedby={errors.email ? 'email-error' : undefined}
                     />
                     {touched.email && errors.email && (
-                      <p className="text-error text-body-sm flex items-center gap-1 mt-1.5">
+                      <p id="email-error" role="alert" className="text-error text-body-sm flex items-center gap-1 mt-1.5">
                         <AlertCircle className="w-3.5 h-3.5" />
                         {errors.email}
                       </p>
@@ -249,20 +247,21 @@ export default function Contact() {
                     onBlur={handleBlur}
                     rows={4}
                     placeholder="Tell us about your IT challenge..."
+                    aria-describedby={errors.message ? 'message-error' : undefined}
                   />
-                  {touched.message && errors.message && (
-                    <p className="text-error text-body-sm flex items-center gap-1 mt-1.5">
-                      <AlertCircle className="w-3.5 h-3.5" />
-                      {errors.message}
-                    </p>
-                  )}
+                    {touched.message && errors.message && (
+                      <p id="message-error" role="alert" className="text-error text-body-sm flex items-center gap-1 mt-1.5">
+                        <AlertCircle className="w-3.5 h-3.5" />
+                        {errors.message}
+                      </p>
+                    )}
                 </div>
 
                 {status === 'error' && !Object.keys(errors).length && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-error-light border border-error/30 text-error text-body-sm">
-                    <AlertCircle className="w-4 h-4" />
-                    Something went wrong. Please try again or email us directly.
-                  </div>
+                  <ErrorBanner
+                    message="Something went wrong. Please try again or email us directly."
+                    onRetry={() => setStatus('idle')}
+                  />
                 )}
 
                 <Button
@@ -278,15 +277,10 @@ export default function Contact() {
                     ? 'Sending...'
                     : 'Send Message'}
                 </Button>
-              </motion.form>
+              </form>
             </div>
 
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="space-y-6"
-            >
+            <div className="space-y-6">
               <div className="p-5 rounded-lg border border-border bg-surface shadow-card">
                 <Mail className="w-5 h-5 text-brand mb-3" />
                 <h3 className="font-semibold text-text-primary mb-1 font-display">
@@ -363,7 +357,7 @@ export default function Contact() {
                   Peshawar, KP, Pakistan
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
         </div>
       </section>

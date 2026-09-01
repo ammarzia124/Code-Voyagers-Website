@@ -87,8 +87,17 @@
     @apply bg-brand/20 text-text-primary;
   }
 
-  h1, h2, h3 {
+  h1, h2, h3, h4, h5, h6 {
     @apply font-display text-text-primary;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  textarea:focus-visible,
+  select:focus-visible,
+  [tabindex]:focus-visible {
+    @apply outline-none ring-2 ring-brand ring-offset-2;
   }
 }
 
@@ -112,5 +121,9 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
+  }
+
+  .animate-marquee {
+    animation: none !important;
   }
 }

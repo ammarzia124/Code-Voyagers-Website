@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion'
 import { useInView } from '@/hooks/useInView'
+import { useTheme } from '@/context/ThemeContext'
 
 const steps = [
   {
@@ -40,13 +41,14 @@ const item = {
 
 export default function ProcessSection() {
   const { ref, isInView } = useInView({ threshold: 0.2 })
+  const { reducedMotion } = useTheme()
 
   return (
     <section className="section-padding bg-base">
       <div className="container-width mx-auto">
         <motion.h2
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
+          initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={reducedMotion ? false : { opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-display-md font-display font-bold text-text-primary mb-16"
         >
@@ -60,7 +62,7 @@ export default function ProcessSection() {
             className="absolute left-[19px] top-[20px] bottom-[20px] w-0.5 bg-brand origin-top"
             initial={{ scaleY: 0 }}
             animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-            transition={{ duration: 1.2, ease: 'easeOut' }}
+            transition={reducedMotion ? { duration: 0 } : { duration: 1.2, ease: 'easeOut' }}
           />
 
           <motion.div

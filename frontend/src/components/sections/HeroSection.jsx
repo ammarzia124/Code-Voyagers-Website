@@ -2,6 +2,7 @@ import { motion } from 'framer-motion'
 import { ArrowRight, Users, ThumbsUp, Clock } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
+import { useTheme } from '@/context/ThemeContext'
 import {
   AreaChart,
   Area,
@@ -27,6 +28,8 @@ const trustBadges = [
 ]
 
 export default function HeroSection() {
+  const { reducedMotion } = useTheme()
+
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden bg-base">
       <div
@@ -41,18 +44,18 @@ export default function HeroSection() {
         <div className="grid grid-cols-1 lg:grid-cols-[55fr_45fr] gap-12 lg:gap-16 items-center">
           <div>
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
+              transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut' }}
               className="text-display-xl font-display font-bold text-text-primary leading-[1.1] mb-6 text-balance"
             >
               Your Technology, Finally Working For You
             </motion.h1>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.1 }}
+              transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut', delay: 0.1 }}
               className="text-body-lg text-text-body max-w-2xl mb-10"
             >
               We manage, secure, and optimize your IT infrastructure so you can
@@ -62,9 +65,9 @@ export default function HeroSection() {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={reducedMotion ? false : { opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+              transition={reducedMotion ? undefined : { duration: 0.6, ease: 'easeOut', delay: 0.2 }}
               className="flex flex-col sm:flex-row items-start gap-4 mb-10"
             >
               <Button size="lg" asChild>
@@ -79,9 +82,9 @@ export default function HeroSection() {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0 }}
+              initial={reducedMotion ? false : { opacity: 0 }}
               animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
+              transition={reducedMotion ? undefined : { duration: 0.6, delay: 0.5 }}
               className="flex flex-wrap items-center gap-4 sm:gap-6 text-sm text-text-muted"
             >
               {trustBadges.map((badge, i) => (
@@ -99,9 +102,9 @@ export default function HeroSection() {
           </div>
 
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
+            initial={reducedMotion ? false : { opacity: 0, x: 30 }}
             animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }}
+            transition={reducedMotion ? undefined : { duration: 0.8, ease: 'easeOut', delay: 0.3 }}
           >
             <div className="shadow-elevated rounded-xl bg-surface overflow-hidden">
               <div className="h-1.5 bg-brand" />

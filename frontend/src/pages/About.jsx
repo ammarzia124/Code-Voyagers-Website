@@ -5,6 +5,7 @@ import { Button } from '@/components/ui/button'
 import { useInView } from '@/hooks/useInView'
 import { useCountUp } from '@/hooks/useCountUp'
 import PageHero from '@/components/layout/PageHero'
+import { useSEO } from '@/utils/seo'
 
 const stats = [
   { value: 500, suffix: '+', label: 'Issues Resolved' },
@@ -86,6 +87,12 @@ function StatItem({ stat, isInView }) {
 }
 
 export default function About() {
+  useSEO({
+    title: 'About Us',
+    description: 'Learn about Code Voyagers — our mission, team, and the values that drive everything we do.',
+    path: '/about',
+  })
+
   const { ref: statsRef, isInView: statsInView } = useInView({
     threshold: 0.3,
   })
@@ -135,9 +142,9 @@ export default function About() {
                 <div className="w-16 h-16 rounded-full bg-brand-light border border-brand/20 flex items-center justify-center mx-auto mb-4 text-brand font-semibold text-lg">
                   {member.initials}
                 </div>
-                <h4 className="font-semibold text-text-primary font-display">
+                <h3 className="font-semibold text-text-primary font-display">
                   {member.name}
-                </h4>
+                </h3>
                 <p className="text-sm text-text-muted mb-3">{member.role}</p>
                 <p className="text-sm text-text-body">{member.bio}</p>
               </motion.div>
