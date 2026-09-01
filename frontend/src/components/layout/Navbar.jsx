@@ -3,7 +3,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X, Rocket } from 'lucide-react'
 import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/cn'
 
 const navLinks = [
   { href: '/', label: 'Home' },
@@ -39,21 +39,21 @@ export default function Navbar() {
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
-            ? 'bg-brand-900/80 backdrop-blur-xl border-b border-brand-700/50 shadow-lg shadow-black/20'
+            ? 'bg-surface/80 backdrop-blur-xl border-b border-border shadow-card'
             : 'bg-transparent'
         )}
       >
         <nav className="container-width mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
           <Link to="/" className="flex items-center gap-2 group">
-            <div className="relative flex items-center justify-center w-9 h-9 rounded-lg bg-accent-500/10 border border-accent-500/30 group-hover:bg-accent-500/20 transition-colors">
-              <Rocket className="w-5 h-5 text-accent-500" />
+            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand/10 group-hover:bg-brand/20 transition-colors">
+              <Rocket className="w-5 h-5 text-brand" />
             </div>
-            <span className="text-lg font-bold text-neutral-50 hidden sm:block">
-              Code<span className="text-accent-500">Voyagers</span>
+            <span className="text-lg font-bold text-text-primary font-display hidden sm:block">
+              Code<span className="text-brand">Voyagers</span>
             </span>
           </Link>
 
@@ -63,10 +63,10 @@ export default function Navbar() {
                 key={link.href}
                 to={link.href}
                 className={cn(
-                  'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                  'px-4 py-2 text-sm font-medium rounded-md transition-colors',
                   location.pathname === link.href
-                    ? 'text-accent-500 bg-accent-500/10'
-                    : 'text-neutral-300 hover:text-neutral-50 hover:bg-brand-800/50'
+                    ? 'text-brand bg-brand-light'
+                    : 'text-text-body hover:text-text-primary hover:bg-base'
                 )}
               >
                 {link.label}
@@ -75,14 +75,14 @@ export default function Navbar() {
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button variant="outline" size="sm">
+            <Button size="sm" asChild>
               <Link to="/contact">Get a Free Audit</Link>
             </Button>
           </div>
 
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="lg:hidden p-2 text-neutral-300 hover:text-neutral-50 transition-colors"
+            className="lg:hidden p-2 text-text-body hover:text-text-primary transition-colors"
             aria-label={isOpen ? 'Close menu' : 'Open menu'}
           >
             {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -97,7 +97,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-brand-900/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 bg-base/95 backdrop-blur-xl lg:hidden"
           >
             <div className="flex flex-col items-center justify-center h-full gap-2">
               {navLinks.map((link, i) => (
@@ -111,10 +111,10 @@ export default function Navbar() {
                   <Link
                     to={link.href}
                     className={cn(
-                      'block px-8 py-3 text-2xl font-medium rounded-lg transition-colors',
+                      'block px-8 py-3 text-2xl font-medium rounded-lg transition-colors font-display',
                       location.pathname === link.href
-                        ? 'text-accent-500'
-                        : 'text-neutral-200 hover:text-accent-500'
+                        ? 'text-brand'
+                        : 'text-text-primary hover:text-brand'
                     )}
                   >
                     {link.label}

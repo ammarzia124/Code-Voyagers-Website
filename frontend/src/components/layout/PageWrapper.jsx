@@ -23,7 +23,6 @@ export default function PageWrapper({ children }) {
     }
 
     requestAnimationFrame(raf)
-
     return () => lenis.destroy()
   }, [])
 

@@ -5,7 +5,7 @@ import { Mail, Phone, MapPin, Send, Clock, MessageSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { SITE_CONFIG, SERVICES } from '@/lib/utils'
+import { SITE_CONFIG, SERVICES } from '@/config/constants'
 
 export default function ContactPage() {
   const [searchParams] = useSearchParams()
@@ -47,7 +47,7 @@ export default function ContactPage() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-accent-500 font-medium text-sm uppercase tracking-wider mb-3"
+              className="text-brand font-medium text-sm uppercase tracking-wider mb-3"
             >
               Get in Touch
             </motion.p>
@@ -55,7 +55,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-bold text-neutral-50 mb-6"
+              className="text-display-lg font-display font-bold text-text-primary mb-6"
             >
               Let&apos;s start a conversation
             </motion.h1>
@@ -63,7 +63,7 @@ export default function ContactPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-neutral-300"
+              className="text-body-lg text-text-body"
             >
               Tell us about your project. We will get back to you within 24 hours with a detailed response.
             </motion.p>
@@ -71,34 +71,34 @@ export default function ContactPage() {
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={{ opacity: 0, x: -20 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.3 }}
               className="lg:col-span-1 space-y-6"
             >
-              <div className="p-5 rounded-xl border border-brand-700 bg-brand-800/20">
-                <Mail className="w-5 h-5 text-accent-500 mb-3" />
-                <h3 className="font-semibold text-neutral-50 mb-1">Email</h3>
-                <a href={`mailto:${SITE_CONFIG.email}`} className="text-sm text-neutral-300 hover:text-accent-500 transition-colors">
+              <div className="p-5 rounded-lg border border-border bg-surface shadow-card">
+                <Mail className="w-5 h-5 text-brand mb-3" />
+                <h3 className="font-semibold text-text-primary mb-1 font-display">Email</h3>
+                <a href={`mailto:${SITE_CONFIG.email}`} className="text-sm text-text-body hover:text-brand transition-colors">
                   {SITE_CONFIG.email}
                 </a>
               </div>
-              <div className="p-5 rounded-xl border border-brand-700 bg-brand-800/20">
-                <Phone className="w-5 h-5 text-accent-500 mb-3" />
-                <h3 className="font-semibold text-neutral-50 mb-1">Phone</h3>
-                <a href={`tel:${SITE_CONFIG.phone}`} className="text-sm text-neutral-300 hover:text-accent-500 transition-colors">
+              <div className="p-5 rounded-lg border border-border bg-surface shadow-card">
+                <Phone className="w-5 h-5 text-brand mb-3" />
+                <h3 className="font-semibold text-text-primary mb-1 font-display">Phone</h3>
+                <a href={`tel:${SITE_CONFIG.phone}`} className="text-sm text-text-body hover:text-brand transition-colors">
                   {SITE_CONFIG.phone}
                 </a>
               </div>
-              <div className="p-5 rounded-xl border border-brand-700 bg-brand-800/20">
-                <MapPin className="w-5 h-5 text-accent-500 mb-3" />
-                <h3 className="font-semibold text-neutral-50 mb-1">Office</h3>
-                <p className="text-sm text-neutral-300">{SITE_CONFIG.address}</p>
+              <div className="p-5 rounded-lg border border-border bg-surface shadow-card">
+                <MapPin className="w-5 h-5 text-brand mb-3" />
+                <h3 className="font-semibold text-text-primary mb-1 font-display">Office</h3>
+                <p className="text-sm text-text-body">{SITE_CONFIG.address}</p>
               </div>
-              <div className="p-5 rounded-xl border border-brand-700 bg-brand-800/20">
-                <Clock className="w-5 h-5 text-accent-500 mb-3" />
-                <h3 className="font-semibold text-neutral-50 mb-1">Response Time</h3>
-                <p className="text-sm text-neutral-300">Within 24 hours on business days</p>
+              <div className="p-5 rounded-lg border border-border bg-surface shadow-card">
+                <Clock className="w-5 h-5 text-brand mb-3" />
+                <h3 className="font-semibold text-text-primary mb-1 font-display">Response Time</h3>
+                <p className="text-sm text-text-body">Within 24 hours on business days</p>
               </div>
             </motion.div>
 
@@ -108,29 +108,29 @@ export default function ContactPage() {
               transition={{ delay: 0.4 }}
               className="lg:col-span-2"
             >
-              <form onSubmit={handleSubmit} className="p-8 rounded-xl border border-brand-700 bg-brand-800/20 space-y-5">
+              <form onSubmit={handleSubmit} className="p-8 rounded-lg border border-border bg-surface shadow-card space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-neutral-200 mb-1.5">Name *</label>
+                    <label className="block text-sm font-medium text-text-primary mb-1.5">Name *</label>
                     <Input name="name" value={formData.name} onChange={handleChange} placeholder="Your full name" required />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-neutral-200 mb-1.5">Email *</label>
+                    <label className="block text-sm font-medium text-text-primary mb-1.5">Email *</label>
                     <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="you@company.com" required />
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-medium text-neutral-200 mb-1.5">Phone</label>
+                    <label className="block text-sm font-medium text-text-primary mb-1.5">Phone</label>
                     <Input name="phone" value={formData.phone} onChange={handleChange} placeholder="+1 (555) 000-0000" />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-neutral-200 mb-1.5">Service</label>
+                    <label className="block text-sm font-medium text-text-primary mb-1.5">Service</label>
                     <select
                       name="service"
                       value={formData.service}
                       onChange={handleChange}
-                      className="flex h-11 w-full rounded-lg border border-brand-700 bg-brand-800/50 px-4 py-2 text-sm text-neutral-100 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent-500"
+                      className="flex h-10 w-full rounded-md border border-border bg-surface px-3 py-2 text-sm text-text-primary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand/30"
                     >
                       <option value="general">General Inquiry</option>
                       {SERVICES.map((s) => (
@@ -140,21 +140,21 @@ export default function ContactPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-200 mb-1.5">Subject *</label>
+                  <label className="block text-sm font-medium text-text-primary mb-1.5">Subject *</label>
                   <Input name="subject" value={formData.subject} onChange={handleChange} placeholder="What can we help you with?" required />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-neutral-200 mb-1.5">Message *</label>
+                  <label className="block text-sm font-medium text-text-primary mb-1.5">Message *</label>
                   <Textarea name="message" value={formData.message} onChange={handleChange} placeholder="Tell us about your project, goals, and timeline..." rows={5} required />
                 </div>
 
                 {status === 'success' && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-green-500/10 border border-green-500/30 text-green-400 text-sm">
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-success-light border border-success/30 text-success text-sm">
                     <MessageSquare className="w-4 h-4" /> Message sent successfully! We will get back to you soon.
                   </div>
                 )}
                 {status === 'error' && (
-                  <div className="flex items-center gap-2 p-3 rounded-lg bg-red-500/10 border border-red-500/30 text-red-400 text-sm">
+                  <div className="flex items-center gap-2 p-3 rounded-lg bg-error-light border border-error/30 text-error text-sm">
                     <MessageSquare className="w-4 h-4" /> Something went wrong. Please try again or email us directly.
                   </div>
                 )}

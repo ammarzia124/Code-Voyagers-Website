@@ -1,15 +1,18 @@
 import * as React from 'react'
 import { cva } from 'class-variance-authority'
-import { cn } from '@/lib/utils'
+import { cn } from '@/utils/cn'
 
 const badgeVariants = cva(
   'inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-medium transition-colors',
   {
     variants: {
       variant: {
-        default: 'border-accent-500/30 bg-accent-500/10 text-accent-400',
-        outline: 'border-brand-700 text-neutral-300',
-        secondary: 'border-brand-600 bg-brand-700/50 text-neutral-200',
+        default: 'border-brand/20 bg-brand-light text-brand',
+        secondary: 'border-border bg-base text-text-body',
+        accent: 'border-accent/20 bg-accent-light text-accent',
+        success: 'border-success/20 bg-success-light text-success',
+        warning: 'border-warning/20 bg-warning-light text-warning',
+        destructive: 'border-error/20 bg-error-light text-error',
       },
     },
     defaultVariants: {

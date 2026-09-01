@@ -1,4 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { ThemeProvider } from '@/context/ThemeContext'
+import { ToastProvider } from '@/context/ToastContext'
 import Navbar from '@/components/layout/Navbar'
 import Footer from '@/components/layout/Footer'
 import PageWrapper from '@/components/layout/PageWrapper'
@@ -14,24 +16,28 @@ import NotFoundPage from '@/pages/NotFoundPage'
 
 export default function App() {
   return (
-    <Router>
-      <div className="min-h-screen bg-brand-900 text-neutral-100">
-        <Navbar />
-        <PageWrapper>
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/services/:slug" element={<ServiceDetailPage />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/blog" element={<BlogPage />} />
-            <Route path="/blog/:slug" element={<BlogPostPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </PageWrapper>
-        <Footer />
-      </div>
-    </Router>
+    <ThemeProvider>
+      <ToastProvider>
+        <Router>
+          <div className="min-h-screen bg-base text-text-primary font-body">
+            <Navbar />
+            <PageWrapper>
+              <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/about" element={<AboutPage />} />
+                <Route path="/services" element={<ServicesPage />} />
+                <Route path="/services/:slug" element={<ServiceDetailPage />} />
+                <Route path="/portfolio" element={<PortfolioPage />} />
+                <Route path="/blog" element={<BlogPage />} />
+                <Route path="/blog/:slug" element={<BlogPostPage />} />
+                <Route path="/contact" element={<ContactPage />} />
+                <Route path="*" element={<NotFoundPage />} />
+              </Routes>
+            </PageWrapper>
+            <Footer />
+          </div>
+        </Router>
+      </ToastProvider>
+    </ThemeProvider>
   )
 }

@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { ExternalLink } from 'lucide-react'
-import { SERVICES } from '@/lib/utils'
+import { SERVICES } from '@/config/constants'
 
 const portfolioItems = [
   { id: 1, title: 'Nextera Health Platform', service: 'web-development', client: 'Nextera Health', description: 'A HIPAA-compliant telehealth platform serving 50K+ patients with real-time video consultations and EHR integration.', tags: ['React', 'Node.js', 'WebRTC'], featured: true },
@@ -32,7 +32,7 @@ export default function PortfolioPage() {
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-accent-500 font-medium text-sm uppercase tracking-wider mb-3"
+              className="text-brand font-medium text-sm uppercase tracking-wider mb-3"
             >
               Our Work
             </motion.p>
@@ -40,7 +40,7 @@ export default function PortfolioPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 }}
-              className="text-4xl sm:text-5xl font-bold text-neutral-50 mb-6"
+              className="text-display-lg font-display font-bold text-text-primary mb-6"
             >
               Projects that speak for themselves
             </motion.h1>
@@ -48,7 +48,7 @@ export default function PortfolioPage() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.2 }}
-              className="text-lg text-neutral-300"
+              className="text-body-lg text-text-body"
             >
               A selection of our recent work across industries and disciplines.
             </motion.p>
@@ -64,10 +64,10 @@ export default function PortfolioPage() {
               <button
                 key={f.value}
                 onClick={() => setActiveFilter(f.value)}
-                className={`px-4 py-2 text-sm rounded-lg border transition-colors ${
+                className={`px-4 py-2 text-sm rounded-md border transition-colors ${
                   activeFilter === f.value
-                    ? 'bg-accent-500 text-brand-900 border-accent-500'
-                    : 'border-brand-700 text-neutral-300 hover:border-accent-500/50 hover:text-neutral-50'
+                    ? 'bg-brand text-white border-brand'
+                    : 'border-border text-text-body hover:border-brand/30 hover:text-brand'
                 }`}
               >
                 {f.label}
@@ -82,29 +82,29 @@ export default function PortfolioPage() {
                 initial={{ opacity: 0, y: 30 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group rounded-xl border border-brand-700 bg-brand-800/30 overflow-hidden hover:border-accent-500/30 transition-all"
+                className="group rounded-lg border border-border bg-surface shadow-card overflow-hidden hover:shadow-elevated transition-shadow"
               >
-                <div className="aspect-video bg-gradient-to-br from-brand-700 to-brand-800 flex items-center justify-center relative overflow-hidden">
-                  <div className="absolute inset-0 bg-accent-500/5 group-hover:bg-accent-500/10 transition-colors" />
-                  <span className="text-4xl font-bold text-brand-700/50">{item.id.toString().padStart(2, '0')}</span>
+                <div className="aspect-video bg-base flex items-center justify-center relative overflow-hidden">
+                  <div className="absolute inset-0 bg-brand/5 group-hover:bg-brand/10 transition-colors" />
+                  <span className="text-4xl font-bold text-border font-display">{item.id.toString().padStart(2, '0')}</span>
                   {item.featured && (
-                    <span className="absolute top-3 right-3 px-2 py-1 text-xs font-medium bg-accent-500 text-brand-900 rounded-full">
+                    <span className="absolute top-3 right-3 px-2 py-1 text-xs font-medium bg-brand text-white rounded-full">
                       Featured
                     </span>
                   )}
                 </div>
                 <div className="p-6">
                   <div className="flex items-start justify-between mb-2">
-                    <h3 className="text-lg font-semibold text-neutral-50 group-hover:text-accent-500 transition-colors">
+                    <h3 className="text-lg font-semibold text-text-primary group-hover:text-brand transition-colors font-display">
                       {item.title}
                     </h3>
-                    <ExternalLink className="w-4 h-4 text-neutral-400 shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
+                    <ExternalLink className="w-4 h-4 text-text-muted shrink-0 mt-1 opacity-0 group-hover:opacity-100 transition-opacity" />
                   </div>
-                  <p className="text-sm text-neutral-400 mb-3">{item.client}</p>
-                  <p className="text-sm text-neutral-300 leading-relaxed mb-4">{item.description}</p>
+                  <p className="text-sm text-text-muted mb-3">{item.client}</p>
+                  <p className="text-sm text-text-body mb-4">{item.description}</p>
                   <div className="flex flex-wrap gap-2">
                     {item.tags.map((tag) => (
-                      <span key={tag} className="px-2 py-0.5 text-xs rounded bg-brand-700/50 text-neutral-300">
+                      <span key={tag} className="px-2 py-0.5 text-xs rounded-md bg-base text-text-muted border border-border">
                         {tag}
                       </span>
                     ))}
