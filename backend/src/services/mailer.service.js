@@ -48,4 +48,27 @@ const sendNewsletterWelcome = async (email) => {
   })
 }
 
-module.exports = { sendContactEmail, sendNewsletterWelcome }
+const sendContactNotification = async (inquiry) => {
+  if (!env.EMAIL_USER) {
+    console.log('Email not configured — skipping notification for:', inquiry.email)
+    return
+  }
+
+  await transporter.sendMail({
+    from: env.EMAIL_USER,
+    to: env.EMAIL_USER,
+    replyTo: inquiry.email,
+    subject: `New Contact: ${inquiry.name} — ${inquiry.serviceInterested}`,
+    html: `
+      <h2>New Contact Form Submission</h2>
+      <p><strong>Name:</strong> ${inquiry.name}</p>
+      <p><strong>Email:</strong> ${inquiry.email}</p>
+      ${inquiry.company ? `<p><strong>Company:</strong> ${inquiry.company}</p>` : ''}
+      <p><strong>Service:</strong> ${inquiry.serviceInterested}</p>
+      <p><strong>Message:</strong></p>
+      <p>${inquiry.message}</p>
+    `,
+  })
+}
+
+module.exports = { sendContactEmail, sendContactNotification, sendNewsletterWelcome }

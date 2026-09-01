@@ -14,16 +14,23 @@ const contactInquirySchema = new mongoose.Schema({
     trim: true,
     match: [/^\S+@\S+\.\S+$/, 'Please provide a valid email'],
   },
-  phone: {
+  company: {
     type: String,
     trim: true,
-    maxlength: 20,
+    maxlength: 100,
   },
-  subject: {
+  serviceInterested: {
     type: String,
-    required: [true, 'Subject is required'],
-    trim: true,
-    maxlength: 200,
+    enum: [
+      'web-development',
+      'app-development',
+      'ui-ux-design',
+      'graphics-designing',
+      'digital-marketing',
+      'ai-automation',
+      'general',
+    ],
+    default: 'general',
   },
   message: {
     type: String,
@@ -31,14 +38,10 @@ const contactInquirySchema = new mongoose.Schema({
     trim: true,
     maxlength: 5000,
   },
-  service: {
+  status: {
     type: String,
-    enum: ['web-development', 'app-development', 'ui-ux-design', 'graphics-designing', 'digital-marketing', 'ai-automation', 'general'],
-    default: 'general',
-  },
-  read: {
-    type: Boolean,
-    default: false,
+    enum: ['new', 'read', 'responded'],
+    default: 'new',
   },
 }, {
   timestamps: true,
