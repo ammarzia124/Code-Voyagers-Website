@@ -1,16 +1,25 @@
 import { useEffect } from 'react'
 import { useLocation } from 'react-router-dom'
 import Lenis from 'lenis'
-import { motion } from 'framer-motion'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/ScrollTrigger'
+import { useScrollProgress } from '@/hooks/useScrollProgress'
+import { useTheme } from '@/context/ThemeContext'
+
+gsap.registerPlugin(ScrollTrigger)
 
 export default function PageWrapper({ children }) {
   const { pathname } = useLocation()
+  const progress = useScrollProgress()
+  const { reducedMotion } = useTheme()
 
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [pathname])
 
   useEffect(() => {
+    if (reducedMotion) return
+
     const lenis = new Lenis({
       duration: 1.2,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -22,18 +31,28 @@ export default function PageWrapper({ children }) {
       requestAnimationFrame(raf)
     }
 
-    requestAnimationFrame(raf)
-    return () => lenis.destroy()
-  }, [])
+    const frameId = requestAnimationFrame(raf)
+
+    return () => {
+      cancelAnimationFrame(frameId)
+      lenis.destroy()
+    }
+  }, [reducedMotion])
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      ScrollTrigger.refresh()
+    }, 100)
+    return () => clearTimeout(timer)
+  }, [pathname])
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
-      transition={{ duration: 0.3 }}
-    >
+    <div>
+      <div
+        className="fixed top-0 left-0 right-0 h-[3px] bg-brand z-50 origin-left"
+        style={{ transform: `scaleX(${progress})` }}
+      />
       {children}
-    </motion.div>
+    </div>
   )
 }

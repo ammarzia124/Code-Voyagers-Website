@@ -1,15 +1,13 @@
 import { useState, useEffect } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, X, Rocket } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/utils/cn'
 
 const navLinks = [
-  { href: '/', label: 'Home' },
-  { href: '/about', label: 'About' },
   { href: '/services', label: 'Services' },
-  { href: '/portfolio', label: 'Portfolio' },
+  { href: '/about', label: 'About' },
   { href: '/blog', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ]
@@ -20,7 +18,7 @@ export default function Navbar() {
   const location = useLocation()
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setScrolled(window.scrollY > 60)
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
@@ -37,9 +35,9 @@ export default function Navbar() {
   return (
     <>
       <motion.header
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        initial={{ y: -8, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
         className={cn(
           'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
           scrolled
@@ -48,12 +46,12 @@ export default function Navbar() {
         )}
       >
         <nav className="container-width mx-auto flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
-          <Link to="/" className="flex items-center gap-2 group">
-            <div className="flex items-center justify-center w-9 h-9 rounded-lg bg-brand/10 group-hover:bg-brand/20 transition-colors">
-              <Rocket className="w-5 h-5 text-brand" />
-            </div>
-            <span className="text-lg font-bold text-text-primary font-display hidden sm:block">
-              Code<span className="text-brand">Voyagers</span>
+          <Link to="/" className="flex items-center gap-0.5 shrink-0">
+            <span className="text-display-md font-bold font-display text-text-primary">
+              Code
+            </span>
+            <span className="text-display-md font-bold font-display text-brand">
+              Voyagers
             </span>
           </Link>
 
@@ -63,20 +61,32 @@ export default function Navbar() {
                 key={link.href}
                 to={link.href}
                 className={cn(
-                  'px-4 py-2 text-sm font-medium rounded-md transition-colors',
+                  'relative px-4 py-2 text-body-md font-medium transition-colors',
                   location.pathname === link.href
-                    ? 'text-brand bg-brand-light'
-                    : 'text-text-body hover:text-text-primary hover:bg-base'
+                    ? 'text-brand'
+                    : 'text-text-body hover:text-text-primary'
                 )}
               >
                 {link.label}
+                <span
+                  className={cn(
+                    'absolute bottom-0 left-4 right-4 h-0.5 bg-brand rounded-full origin-left transition-transform duration-200',
+                    location.pathname === link.href
+                      ? 'scale-x-100'
+                      : 'scale-x-0 hover:scale-x-100'
+                  )}
+                />
               </Link>
             ))}
           </div>
 
           <div className="hidden lg:flex items-center gap-3">
-            <Button size="sm" asChild>
-              <Link to="/contact">Get a Free Audit</Link>
+            <Button
+              size="default"
+              asChild
+              className="rounded-full hover:shadow-brand hover:scale-[1.02] transition-all duration-200"
+            >
+              <Link to="/contact">Book a Free Consult</Link>
             </Button>
           </div>
 
@@ -97,15 +107,25 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 z-40 bg-base/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-40 lg:hidden"
+            onClick={() => setIsOpen(false)}
           >
-            <div className="flex flex-col items-center justify-center h-full gap-2">
+            <div className="absolute inset-0 bg-base/95 backdrop-blur-xl" />
+
+            <motion.div
+              initial={{ y: -20, opacity: 0 }}
+              animate={{ y: 0, opacity: 1 }}
+              exit={{ y: -20, opacity: 0 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+              className="relative flex flex-col items-center justify-center h-full gap-2 pt-16"
+              onClick={(e) => e.stopPropagation()}
+            >
               {navLinks.map((link, i) => (
                 <motion.div
                   key={link.href}
-                  initial={{ opacity: 0, y: 20 }}
+                  initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: 20 }}
+                  exit={{ opacity: 0, y: 12 }}
                   transition={{ delay: i * 0.05, duration: 0.3 }}
                 >
                   <Link
@@ -122,17 +142,17 @@ export default function Navbar() {
                 </motion.div>
               ))}
               <motion.div
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 20 }}
+                exit={{ opacity: 0, y: 12 }}
                 transition={{ delay: navLinks.length * 0.05, duration: 0.3 }}
                 className="mt-6"
               >
-                <Button size="lg">
-                  <Link to="/contact">Get a Free Audit</Link>
+                <Button size="lg" asChild className="rounded-full">
+                  <Link to="/contact">Book a Free Consult</Link>
                 </Button>
               </motion.div>
-            </div>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>
